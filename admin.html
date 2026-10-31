@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASHU ADMIN</title>
+<style>
+body{background:#080808;color:white;font-family:Arial;padding:20px}
+h1{color:#e8bd53;text-align:center}
+.card{background:#191919;padding:18px;border:1px solid #b58b35;border-radius:12px;margin:15px 0}
+input{width:95%;padding:12px;margin:8px 0}
+button{background:#e8bd53;padding:12px;border:0;border-radius:8px;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>ASHU ONLINE LOTTERY</h1>
+<h2>ADMIN DASHBOARD</h2>
+<div class="card">
+<h3>Lottery Information</h3>
+<p>Total Numbers: 50</p>
+<p>Ticket Price: 200 Birr</p>
+<p>First Prize: 5,000 Birr</p>
+<p>Second Prize: 1,000 Birr</p>
+<p>Third Prize: 500 Birr</p>
+</div>
+<div class="card">
+<h3>Demo Admin Login</h3>
+<input id="password" type="password" placeholder="Enter demo password">
+<button onclick="login()">LOGIN</button>
+<p id="message"></p>
+</div>
+<script>
+function login(){
+if(document.getElementById('password').value==='ASHU123'){
+document.getElementById('message').innerText='Demo admin page opened!';
+}else{
+document.getElementById('message').innerText='Incorrect password';
+}
+}
+</script>
+</body>
+</html>
