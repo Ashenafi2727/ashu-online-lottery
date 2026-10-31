@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASHU ONLINE LOTTERY</title>
+
+<style>
+* {
+ box-sizing:border-box;
+}
+
+body {
+ margin:0;
+ padding:15px;
+ background:#101820;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+
+header {
+ text-align:center;
+ padding:25px 10px;
+}
+
+header h1 {
+ color:#e0b13e;
+ font-size:27px;
+}
+
+header p {
+ color:#aaa;
+}
+
+.card {
+ background:#202c38;
+ border:1px solid #35414c;
+ border-radius:16px;
+ padding:20px;
+ margin-bottom:20px;
+}
+
+h2,h3 {
+ color:#e0b13e;
+}
+
+.prizes {
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ text-align:center;
+}
+
+.prizes div {
+ background:#303c48;
+ padding:15px 5px;
+ border-radius:12px;
+}
+
+.prizes b {
+ color:#e0b13e;
+ font-size:20px;
+}
+
+.grid {
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:10px;
+}
+
+.num {
+ background:#303c48;
+ color:white;
+ border:1px solid #555;
+ border-radius:10px;
+ padding:15px 5px;
+ font-size:18px;
+}
+
+.num.selected {
+ background:#e0b13e;
+ color:black;
+ font-weight:bold;
+}
+
+.main {
+ width:100%;
+ padding:16px;
+ background:#e0b13e;
+ color:#111;
+ border:0;
+ border-radius:12px;
+ font-size:18px;
+ font-weight:bold;
+ margin-top:15px;
+}
+
+.main:active {
+ transform:scale(.98);
+}
+
+#total {
+ color:#e0b13e;
+ font-weight:bold;
+ font-size:18px;
+}
+
+#payment {
+ display:none;
+}
+
+.account {
+ background:#303c48;
+ padding:15px;
+ border-radius:12px;
+ margin:15px 0;
+}
+
+.account p {
+ font-size:18px;
+}
+
+.account button {
+ background:#e0b13e;
+ border:0;
+ padding:10px;
+ border-radius:8px;
+ font-weight:bold;
+}
+
+.gold {
+ color:#e0b13e;
+ font-size:24px;
+ font-weight:bold;
+}
+
+footer {
+ text-align:center;
+ color:#888;
+ padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🏆 ASHU ONLINE LOTTERY</h1>
+<p>YOUR LUCK • YOUR CHANCE</p>
+</header>
+
+<div class="card">
+<h3>🎟️ LOTTERY INFORMATION</h3>
+<p>Ticket Price: <b>200 Birr</b></p>
+<p>Available Numbers: <b>50</b></p>
+</div>
+
+<div class="card">
+<h3>🏆 WINNING PRIZES</h3>
+
+<div class="prizes">
+<div>🥇<br><b>5,000</b><br>Birr</div>
+<div>🥈<br><b>1,000</b><br>Birr</div>
+<div>🥉<br><b>500</b><br>Birr</div>
+</div>
+</div>
+
+<div class="card" id="lottery">
+
+<h3>🎫 CHOOSE YOUR NUMBERS</h3>
+<p>Select your lucky numbers:</p>
+
+<div class="grid" id="numbers"></div>
+
+<p id="total">Selected: 0 | Total: 0 Birr</p>
+
+<button class="main" onclick="continuePayment()">
+CONTINUE →
+</button>
+
+</div>
+
+<div class="card" id="payment">
+
+<h2>💳 PAYMENT INFORMATION</h2>
+
+<p>Selected Numbers:</p>
+<p class="gold" id="selectedNumbers">-</p>
+
+<p>Total Tickets: <b id="ticketCount">0</b></p>
+
+<h2 class="gold">
+Total: <span id="totalPrice">0</span> Birr
+</h2>
+
+<hr>
+
+<h3>CHOOSE PAYMENT METHOD</h3>
+
+<div class="account">
+<h3>🏦 Bank of Abyssinia</h3>
+<p>Demo payment method</p>
+</div>
+
+<div class="account">
+<h3>🏦 Commercial Bank of Ethiopia</h3>
+<p>Demo payment method</p>
+</div>
+
+<div class="account">
+<h3>📱 Telebirr</h3>
+<p>Demo payment method</p>
+</div>
+
+<p style="color:#e0b13e">
+This is a demonstration only.
+No real payments are processed.
+</p>
+
+<button class="main" onclick="backToLottery()">
+← BACK
+</button>
+
+</div>
+
+<footer>
+ASHU ONLINE LOTTERY<br>
+GOOD LUCK! 🍀
+</footer>
+
+<script>
+
+let selected = [];
+
+const grid = document.getElementById("numbers");
+
+for(let i=1;i<=50;i++){
+
+ const btn = document.createElement("button");
+
+ btn.className = "num";
+ btn.textContent = i;
+
+ btn.onclick = function(){
+
+  if(selected.includes(i)){
+
+   selected = selected.filter(x=>x!==i);
+   btn.classList.remove("selected");
+
+  } else {
+
+   selected.push(i);
+   btn.classList.add("selected");
+
+  }
+
+  updateTotal();
+
+ };
+
+ grid.appendChild(btn);
+
+}
+
+function updateTotal(){
+
+ document.getElementById("total").textContent =
+ "Selected: " + selected.length +
+ " | Total: " + (selected.length*200) + " Birr";
+
+}
+
+function continuePayment(){
+
+ if(selected.length===0){
+  alert("Please select a number!");
+  return;
+ }
+
+ const sorted = [...selected].sort((a,b)=>a-b);
+
+ document.getElementById("selectedNumbers").textContent =
+ sorted.join(", ");
+
+ document.getElementById("ticketCount").textContent =
+ sorted.length;
+
+ document.getElementById("totalPrice").textContent =
+ sorted.length*200;
+
+ document.getElementById("payment").style.display="block";
+
+ document.getElementById("lottery").style.display="none";
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function backToLottery(){
+
+ document.getElementById("payment").style.display="none";
+
+ document.getElementById("lottery").style.display="block";
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+</script>
+
+</body>
+</html>
+
+
